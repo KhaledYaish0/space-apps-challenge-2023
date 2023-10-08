@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>EVERYTHING STARTS WITH WATER</title>
+    <link rel="stylesheet" href="style.css">
     <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
     <script>
         AFRAME.registerComponent('rotate', {
@@ -26,25 +27,6 @@
             top: 56px; /* Adjust this value based on your navbar height */
             left: 0;
             z-index: 0; /* Ensure the A-Frame scene is behind the navbar */
-        }
-
-        /* CSS for the Bootstrap Navbar */
-        .navbar {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1; /* Ensure the navbar is on top of other elements */
-            background-color: transparent; /* Make the navbar background transparent */
-        }
-
-        /* Style to align navbar links to the right */
-        .navbar-nav {
-            margin-left: auto;
-        }
-
-        /* Style to remove underlines from navbar links */
-        .navbar-nav .nav-link {
-            text-decoration: none;
         }
     </style>
     
