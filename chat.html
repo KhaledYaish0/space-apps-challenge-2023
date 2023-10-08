@@ -24,7 +24,6 @@
         /* CSS for the video background */
         body {
             margin: 0;
-            overflow: scroll;
             background-image: url('imgs/space.jpg');
         }
 
@@ -185,7 +184,7 @@
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({
-                model: "gpt-4-0613",
+                model: "gpt-3.5-turbo",
                 messages: [
                     {
                         "role": "system",
