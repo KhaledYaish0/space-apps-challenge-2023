@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat with AI</title>
+    <!-- Link to Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            font-family: "DejaVu Sans", sans-serif;
+            background-image: url("imgs/pexels-jeremy-bishop-2397649.jpg");
+            min-height: 100vh;
+            color: black;
+            padding: 20px;
+        }
+
+        #chatBox {
+            border: 1px solid #444;
+            padding: 10px;
+            width: 80%;
+            height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 20px;
+        }
+
+        #userInput {
+            width: 70%;
+            padding: 10px;
+            border: 1px solid #444;
+            background-color: #333;
+            color: white;
+        }
+
+        #sendButton {
+            padding: 10px 20px;
+            border: none;
+            background-color: #008CBA;
+            color: white;
+            cursor: pointer;
+        }
+
+        #normalText {
+            font-size: xx-large;
+            padding: 0 5rem;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <!-- Bootstrap Navbar -->
+    <nav class="navbar navbar-expand-lg navbar-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="index.html">
+                <img src="imgs/logo.png" alt="Your Logo">
+            </a>
+
+            <button
+                    class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation"
+            >
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav ml-auto"> <!-- Align navbar links to the right -->
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="index.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="WaterCycle.html">Water Cycle</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="visual.html">Visual Tool</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="about.html">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" aria-current="page" href="researches.html">Researches</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+<div id="chatBox"></div>
+<p id="normalText">Earth has 370 quintillion gallons of water – but only 0.01% of that is freshwater that we can use. As
+    climate change
+    alters the global water cycle, this precious resource is in danger of becoming even more scarce.
+    <br>Are you interested in more information about this problem ?</p>
+<input type="text" id="userInput" placeholder="Ask something...">
+<button id="sendButton" onclick="sendMessage()">Send</button>
+
+<script>
+    async function sendMessage() {
+        const message = document.getElementById('userInput').value;
+        const chatBox = document.getElementById('chatBox');
+        chatBox.innerHTML += `<div>You: ${message}</div>`;
+        document.getElementById('userInput').value = '';
+
+        const response = await fetch('https://api.openai.com/v1/engines/davinci/completions', {
+            method: 'POST',
+            headers: {
+                'Authorization': 'Bearer YOUR_API_KEY',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt: message,
+                max_tokens: 150
+            })
+        });
+
+        const responseData = await response.json();
+        chatBox.innerHTML += `<div>AI: ${responseData.choices[0].text.trim()}</div>`;
+        chatBox.scrollTop = chatBox.scrollHeight;
+    }
+</script>
+</body>
+</html>
